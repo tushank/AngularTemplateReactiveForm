@@ -1,0 +1,83 @@
+<div class="container">
+  <form (ngSubmit)="save()" [formGroup]="adminAccountForm">
+
+    <div>
+      <label for="loginName">Login Name</label>
+      <input 
+        type="text" 
+        id="loginNameId" 
+        class="form-control" 
+        placeholder="Login Name" 
+        formControlName="loginName"
+        [ngClass]="{'is-invalid': (adminAccountForm.get('loginName').touched || adminAccountForm.get('loginName').dirty) && !adminAccountForm.get('loginName').valid }"
+      >
+      <div *ngIf="adminAccountForm.get('loginName').invalid && adminAccountForm.get('loginName').touched" class="text-danger">
+        <div *ngIf="adminAccountForm.get('loginName').errors.required">First Name is required</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input 
+        type="password" 
+        class="form-control" 
+        placeholder="password" 
+        formControlName="password" 
+        [ngClass]="{'is-invalid': (adminAccountForm.get('password').touched || adminAccountForm.get('password').dirty) && !adminAccountForm.get('password').valid }"
+     />
+
+      <div *ngIf="adminAccountForm.get('password').invalid && adminAccountForm.get('password').touched" class="text-danger">
+        <div *ngIf="adminAccountForm.get('password').errors.required">Password is required</div>
+        <div *ngIf="adminAccountForm.get('password').errors.minlength">Password must be at least 3 characters</div>
+      </div>
+    </div>
+
+    <div>
+        <label for="fullName">Full Name</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="fullName" 
+          formControlName="fullName"
+          [ngClass]="{'is-invalid': (adminAccountForm.get('fullName').touched || adminAccountForm.get('fullName').dirty) && !adminAccountForm.get('fullName').valid }"
+        />
+        <div *ngIf="adminAccountForm.get('fullName').invalid && adminAccountForm.get('fullName').touched" class="text-danger">
+          <div *ngIf="adminAccountForm.get('fullName').errors.required">Full Name is required</div>
+        </div>
+    </div>
+
+    <div>
+        <label for="adminDescription">Admin Description</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="adminDescription" 
+          formControlName="adminDescription"
+          [ngClass]="{'is-invalid': (adminAccountForm.get('adminDescription').touched || adminAccountForm.get('adminDescription').dirty) && !adminAccountForm.get('adminDescription').valid }"
+        />
+        <div *ngIf="adminAccountForm.get('adminDescription').invalid && adminAccountForm.get('adminDescription').touched" class="text-danger">
+          <div *ngIf="adminAccountForm.get('adminDescription').errors.required">Admin Description is required</div>
+        </div>
+    </div>
+
+    <div>
+        <label for="adminGroupId ">Admin Groups</label>
+        <select 
+          class="form-control" 
+          formControlName="adminGroupId" 
+          placeholder="adminGroupId">
+          <option *ngFor="let  adminGroupsDTOList of adminGroupsDTOLists" [value]="adminGroupsDTOList">{{adminGroupsDTOList}}</option>
+        </select>
+    </div>
+
+    <div>
+        <button type="submit"  [title]="adminAccountForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+          [disabled]="!adminAccountForm.valid">
+          Save
+        </button>
+        <button class="btn" type="reset">Clear</button>
+        <button class="btn" type="button" (click)="updateData()">Test</button>
+    </div>
+
+  </form>
+</div>

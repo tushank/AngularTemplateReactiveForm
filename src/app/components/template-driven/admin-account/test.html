@@ -1,0 +1,70 @@
+<div class="card">
+    <div class="card-header">
+        Sign Up!
+    </div>
+
+    <div class="card-body">
+        <form novalidate (ngSubmit)="save(signupForm)" #signupForm="ngForm">
+
+            <div class="form-group">
+                <label for="loginName">Login Name</label>
+                <input type="text" id="loginName" class="form-control" [(ngModel)]="adminAccount.loginName" #loginName="ngModel"
+                    name="loginName" [ngClass]="{ 'is-invalid': f.submitted && loginName.invalid && loginName.touched }"
+                    required>
+                <div *ngIf="loginName.invalid && loginName.touched" class="text-danger">
+                    <div *ngIf="loginName.errors.required">First Name is required</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" [(ngModel)]="adminAccount.password"
+                    #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid && password.touched }"
+                    required minlength="6" />
+                <div *ngIf="password.invalid && password.touched" class="text-danger">
+                    <div *ngIf="password.errors.required">Password is required</div>
+                    <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" class="form-control" name="fullName" [(ngModel)]="adminAccount.fullName" #fullName="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && fullName.invalid && fullName.touched }" required />
+                <div *ngIf="fullName.invalid && fullName.touched" class="text-danger">
+                    <div *ngIf="fullName.errors.required">Full Name is required</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="adminDescription">Admin Description</label>
+                <input type="text" class="form-control" name="adminDescription" [(ngModel)]="adminAccount.adminDescription"
+                    #adminDescription="ngModel" [ngClass]="{ 'is-invalid': f.submitted && adminDescription.invalid && adminDescription.touched }"
+                    required />
+                <div *ngIf="adminDescription.invalid && adminDescription.touched" class="text-danger">
+                    <div *ngIf="adminDescription.errors.required">Admin Description is required</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="adminGroupId ">Admin Groups</label>
+                <select id="adminGroups" class="form-control" [(ngModel)]="adminAccount.adminGroupId" name="adminGroupId">
+                    <option *ngFor="let  adminGroupsDTOList of adminGroupsDTOLists" [value]="adminGroupsDTOList.adminGroupId">{{adminGroupsDTOList.adminGroupName}}</option>
+                </select>
+            </div>
+
+            <div class="form-group row mb-2">
+                <div class="offset-md-2 col-md-4">
+                    <button class="btn btn-primary mr-3" type="submit" style="width:80px" [title]="signupForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                        [disabled]="!signupForm.valid">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br>Dirty: {{ signupForm.dirty }}
+<br>Touched: {{ signupForm.touched }}
+<br>Valid: {{ signupForm.valid }}
+<br>Value: {{ signupForm.value | json }}
